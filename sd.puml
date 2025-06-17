@@ -1,0 +1,31 @@
+﻿@startuml
+title Диаграмма последовательностей: Путь заказа
+
+' ---- Участники ----
+participant Клиент           as client
+participant СистемаРесторана as restaurantSys
+participant ПлатёжнаяСистема as paymentSys
+participant Кухня            as kitchen
+participant Курьер           as courier
+
+' ---- Сценарий ----
+client -> restaurantSys : создатьЗаказ()
+activate restaurantSys
+restaurantSys -> paymentSys : запросНаОплату()
+activate paymentSys
+paymentSys -> client : ссылкаНаОплату()
+deactivate paymentSys
+client -> paymentSys : оплатить()
+paymentSys --> restaurantSys : подтверждениеОплаты()
+deactivate restaurantSys
+
+restaurantSys -> kitchen : приготовить(заказ)
+activate kitchen
+kitchen --> restaurantSys : готово()
+deactivate kitchen
+
+restaurantSys -> courier : доставить(заказ)
+activate courier
+courier --> client : заказДоставлен()
+deactivate courier
+@enduml

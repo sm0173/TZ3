@@ -1,0 +1,33 @@
+﻿@startuml
+' файл сохранён в кодировке UTF-8
+
+title Use-case диаграмма: поток заказа
+
+' ---- Актёры ----
+actor Клиент as client
+actor Повар as chef
+actor Курьер as courier
+actor ПлатёжнаяСистема as paymentSystem
+
+' ---- Сценарии ----
+usecase "Просмотреть меню" as (browseMenu)
+usecase "Создать заказ"    as (createOrder)
+usecase "Оплатить заказ"   as (payOrder)
+usecase "Приготовить заказ" as (cookOrder)
+usecase "Доставить заказ"  as (deliverOrder)
+usecase "Отменить заказ"   as (cancelOrder)
+
+' ---- Связи ----
+client --> (browseMenu)
+client --> (createOrder)
+(createOrder) --> (payOrder) : include
+client --> (cancelOrder) : extend
+
+(createOrder) --> chef
+chef --> (cookOrder)
+(cookOrder) --> courier
+courier --> (deliverOrder)
+
+(payOrder) --> paymentSystem
+
+@enduml

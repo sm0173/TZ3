@@ -13,5 +13,7 @@ Windows 11 / PowerShell
 powershell:
 
 git clone https://github.com/yourname/GAZFood-UML.git
+
 cd GAZFood-UML
+
 .\generate_png.bat
